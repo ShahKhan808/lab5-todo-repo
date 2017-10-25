@@ -18,11 +18,11 @@ def statichtml(name=None):
     return render_template('index.html', name=name)
 
 @app.route("/list")
-def hello(): # Name of the method
-    cur = mysql.connection.cursor() #create a connection to the SQL instance
-    cur.execute('''SELECT * FROM todolist''') # execute an SQL statment
-    rv = cur.fetchall() #Retreive all rows returend by the SQL statment
-    return render_template('index.html', name=str(rv))     #Return the data in a string format
+def hello():
+    cur = mysql.connection.cursor()
+    cur.execute('''SELECT * FROM todolist''') 
+    rv = cur.fetchall() 
+    return render_template('index.html', name=str(rv))    
 
 @app.route("/add/<string:task>")
 def add(task=None):
@@ -42,7 +42,7 @@ def update(task=None, no=None):
     cur.execute(update_stmt, data)
     mysql.connection.commit()
 
-    return render_template('index.html', name="User record was updated")      #Return the data in a string format
+    return render_template('index.html', name="User record was updated")    
 
 
 
@@ -54,6 +54,6 @@ def delete(no=None):
 
     cur.execute(delstatmt)
     mysql.connection.commit()
-    return render_template('index.html', name="User record was deleted")      #Return the data in a string format
+    return render_template('index.html', name="User record was deleted")    
 if __name__ == "__main__":
-        app.run(host='0.0.0.0', port='5000')
+        app.run(host='0.0.0.0', port='5002')
