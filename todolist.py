@@ -20,14 +20,14 @@ def statichtml(name=None):
 @app.route("/list")
 def hello(): # Name of the method
     cur = mysql.connection.cursor() #create a connection to the SQL instance
-    cur.execute('''SELECT * FROM TASK''') # execute an SQL statment
+    cur.execute('''SELECT * FROM todolist''') # execute an SQL statment
     rv = cur.fetchall() #Retreive all rows returend by the SQL statment
     return render_template('index.html', name=str(rv))     #Return the data in a string format
 
 @app.route("/add/<string:task>")
 def add(task=None):
     cur= mysql.connection.cursor()
-    cur.execute('''INSERT INTO TASK (task_name) VALUES (%s)''',(task,))
+    cur.execute('''INSERT INTO todolist (task_name) VALUES (%s)''',(task,))
     mysql.connection.commit()
     return render_template('index.html', name="New Record is added to the database")
 
@@ -36,24 +36,24 @@ def add(task=None):
 def update(task=None, no=None):
     cur=mysql.connection.cursor()
     update_stmt = (
-        "UPDATE TASK SET task_name = %s "
+        "UPDATE todolist SET task_name = %s "
         "WHERE task_no = %s")
     data=(task,no)
     cur.execute(update_stmt, data)
     mysql.connection.commit()
 
-    return render_template('index.html', name="User recored was updated")      #Return the data in a string format
+    return render_template('index.html', name="User record was updated")      #Return the data in a string format
 
 
 
 @app.route("/delete/<no>")
 def delete(no=None):
     cur=mysql.connection.cursor()
-    delstatmt = "DELETE FROM TASK WHERE task_no = ' {} ' ".format(no)
+    delstatmt = "DELETE FROM todolist WHERE task_no = ' {} ' ".format(no)
     print(delstatmt)
 
     cur.execute(delstatmt)
     mysql.connection.commit()
-    return render_template('index.html', name="User recored was deleted")      #Return the data in a string format
+    return render_template('index.html', name="User record was deleted")      #Return the data in a string format
 if __name__ == "__main__":
         app.run(host='0.0.0.0', port='5000')
