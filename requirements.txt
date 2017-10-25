@@ -1,4 +1,2 @@
 Flask
 flask-mysqldb
-flask_promtheus
-slackclient
