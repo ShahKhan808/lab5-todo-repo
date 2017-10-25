@@ -56,4 +56,4 @@ def delete(no=None):
     mysql.connection.commit()
     return render_template('index.html', name="User record was deleted")    
 if __name__ == "__main__":
-        app.run(host='0.0.0.0', port='5002')
+        app.run(host='0.0.0.0', port='5003')
